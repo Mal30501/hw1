@@ -42,23 +42,15 @@ const Homework1 = class Homework1 {
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math
  */
 
-const Circle = class Circle {
-    constructor(radius, color) {
-        this.radius = radius;
-        this.color = color;
+const Circle = class Circle { 
+    constructor(radius,color){
+        this.radius=radius;
+        this.color=color;
     }
-
-    calcArea() {
-        // Use Math.PI to get the value of PI and calculate the area
-        return Math.PI * this.radius * this.radius;
+    calcArea(){
+        return this.radius * this.radius * Math.PI;
     }
-};
-
-// Example usage:
-const myCircle = new Circle(5, 'red');
-console.log(`Radius: ${myCircle.radius}`);
-console.log(`Color: ${myCircle.color}`);
-console.log(`Area: ${myCircle.calcArea()}`);
+}
 
 
 /**
@@ -80,15 +72,16 @@ console.log(`Area: ${myCircle.calcArea()}`);
  */
 
 const Student = class Student {
-    grade = undefined; 
-    graduated = false; 
-    constructor(firstName, lastName, gpa, degreeType) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.gpa = gpa;
-        this.degreeType = degreeType;
+    grade=undefined;
+    graduated=false;
+    constructor(firstName,lastName,gpa,degreeType){
+        this.firstName=firstName;
+        this.lastName=lastName;
+        this.gpa=gpa;
+        this.degreeType=degreeType;
     }
-};
+ }
+
 
 /**
  * *****************
@@ -104,27 +97,12 @@ const Student = class Student {
  */
 
 const Product = class Product {
-    constructor(inputString) {
-        // Split the input string by comma to get the individual parts
-        const parts = inputString.split(',');
-
-        // Check if the input format is valid
-        if (parts.length !== 3) {
-            throw new Error('Invalid input format');
-        }
-
-        // Set the properties based on the parsed values
-        this.name = parts[0];
-        this.price = parseFloat(parts[1]);
-        this.availability = parts[2];
+    constructor(data){
+        let input=data.split(",");
+        this.name=input[0];
+        this.price=parseFloat(input[1]);
+        this.availability=input[2];
     }
-};
-
-// Example usage:
-const productString = 'Apple,1.00,In Stock';
-const product = new Product(productString);
-console.log(product);
-
     /**
      * *****************
      * ***** TODO ******
@@ -136,8 +114,7 @@ console.log(product);
      * This can be implmeneted in one line.
      * Reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array 
      */
-    static inStock = (products) => products.filter(product => product.availability === 'In Stock');
-
+    static inStock = (products) => products.filter(product=>product.availability=="In Stock");
 
     /**
      * *****************
@@ -150,8 +127,8 @@ console.log(product);
      * This method can also be written in one line; if doing so, consider using String interpolation when calling the product constructor
      * Reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array 
      */
-    static halfOff = {(products) => products.map(product => new Product(product.name, product.price * 0.5, product.availability))
-};
+    static halfOff = (products) => products.map(product=>new Product(`${product.name},${product.price*0.5},${product.availability}`));
+
     /**
      * *****************
      * ***** TODO ******
@@ -165,29 +142,8 @@ console.log(product);
      * Reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array 
      * Reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat (currency formatting)
      */
-    const Product = class Product {
-        constructor(name, price, availability) {
-            this.name = name;
-            this.price = price;
-            this.availability = availability;
-        }
-    
-        static printProducts = (products) => {
-            products.forEach(product => {
-                const available = product.availability === 'In Stock' ? 'Yes' : 'No';
-                console.log(`Product: ${product.name}, Cost: $${product.price.toFixed(2)}, Available: ${available}`);
-            });
-        }
-    };
-    
-    // Example usage:
-    const product1 = new Product('Apple', 1.00, 'In Stock');
-    const product2 = new Product('Banana', 0.75, 'Out of Stock');
-    const product3 = new Product('Orange', 1.25, 'In Stock');
-    
-    const products = [product1, product2, product3];
-    
-    Product.printProducts(products);
+    static printProducts = (products) => products.forEach(product => console.log("Product: "+product.name+", Cost: "+new Intl.NumberFormat('en-US',{style:"currency",currency:"USD"}).format(product.price)+", Availability: "+(product.availability=="In Stock"?"Yes":"No")));
+
  };
 
 // ----------------------------------
